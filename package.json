@@ -1,0 +1,15 @@
+{
+  "name": "font-css-creator",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "woff-parser": "^1.0.0",
+    "woff2-parser": "^1.0.0"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "jasmine": "^2.3.2"
+  }
+}
