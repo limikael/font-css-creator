@@ -15,6 +15,14 @@ function FontCssCreator() {
 module.exports = FontCssCreator;
 
 /**
+ * Get font datas.
+ * @method getFontDatas
+ */
+FontCssCreator.prototype.getFontDatas = function() {
+	return this.fontDatas;
+}
+
+/**
  * Get loaded font families.
  * @method getFontFamilies
  */
@@ -133,8 +141,11 @@ FontCssCreator.prototype.parseFontFiles = function(fontFiles) {
 	this.loadingFiles = fontFiles;
 	this.loadingIndex = 0;
 
+	var t = this.loadingThenable;
+
 	this.loadNextFontFile();
-	return this.loadingThenable;
+
+	return t;
 }
 
 /**

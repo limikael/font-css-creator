@@ -10,13 +10,19 @@ module.exports = function(grunt) {
 
 		var fontFiles = [];
 
-		this.files.forEach(function(file) {
-			fontFiles = fontFiles.concat(file.src);
-		});
+		if (this.files) {
+			this.files.forEach(function(file) {
+				fontFiles = fontFiles.concat(file.src);
+			});
+		}
 
 		cssCreator = new FontCssCreator();
 		cssCreator.parseFontFiles(fontFiles).then(
 			function() {
+				grunt.log.ok(
+					"Parsed " + cssCreator.getFontDatas().length + 
+					" font file(s) and found "+cssCreator.getFontFamilies().length +
+					" font(s).");
 				cssCreator.saveCss(options.css);
 				grunt.log.ok("Created " + options.css);
 				done();
