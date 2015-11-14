@@ -10,8 +10,10 @@ function usage() {
 	console.log("  createfontcss [options] <font files [...]>");
 	console.log("");
 	console.log("Options:");
-	console.log("  --css=<filename.css>    - File to wirte css to.");
-	console.log("                            Default is standard out.");
+	console.log("  --css=<filename.css>      - File to wirte css to.");
+	console.log("                              Default is standard out.");
+	console.log("  --custom=<filename.json>  - Create a json file containing");
+	console.log("                              custom info for WebFontLoader.");
 	console.log("");
 	process.exit(1);
 }
@@ -21,7 +23,7 @@ var args = minimist(process.argv.slice(2));
 if (!args._.length)
 	usage();
 
-knownAgrs = ["css"];
+knownAgrs = ["css","custom"];
 
 for (arg in args) {
 	if (arg != "_" && knownAgrs.indexOf(arg) < 0) {
@@ -36,6 +38,10 @@ cssCreator.parseFontFiles(args._).then(
 	function() {
 		if (args.css) {
 			cssCreator.saveCss(args.css);
+
+			if (args.custom)
+				cssCreator.saveInfo(args.custom);
+
 			console.log("Wrote " + args.css);
 		} else
 			console.log(cssCreator.getCss());

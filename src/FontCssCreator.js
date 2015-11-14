@@ -191,9 +191,30 @@ FontCssCreator.prototype.getCss = function() {
 }
 
 /**
+ * Get info.
+ * @method getInfo
+ */
+FontCssCreator.prototype.getInfo = function() {
+	return {
+		"families": this.getFontFamilies(),
+		"url": this.cssFileName
+	};
+}
+
+/**
+ * Save info.
+ * @method saveInfo
+ */
+FontCssCreator.prototype.saveInfo = function(infoJsonFileName) {
+	var json = JSON.stringify(this.getInfo(), null, 2);
+	fs.writeFileSync(infoJsonFileName, json);
+}
+
+/**
  * Save css.
  * @method saveCss
  */
 FontCssCreator.prototype.saveCss = function(cssFileName) {
+	this.cssFileName = path.basename(cssFileName);
 	fs.writeFileSync(cssFileName, this.getCss());
 }

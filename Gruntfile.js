@@ -8,7 +8,8 @@ module.exports = function(grunt) {
 		fontcss: {
 			test: {
 				options: {
-					css: "spec/output.css"
+					css: "spec/output.css",
+					custom: "spec/output.json"
 				},
 				files: [{
 					expand: true,
