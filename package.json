@@ -5,11 +5,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "minimist": "^1.2.0",
     "woff-parser": "^1.0.0",
     "woff2-parser": "^1.0.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
     "jasmine": "^2.3.2"
+  },
+  "bin": {
+    "createfontcss": "./bin/createfontcss.js"
   }
 }
