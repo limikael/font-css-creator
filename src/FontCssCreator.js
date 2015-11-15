@@ -73,6 +73,7 @@ FontCssCreator.prototype.getCssForFamily = function(family) {
 
 /**
  * Get relevant font data for a given family.
+ * The result will be sorted by format priority.
  * @method getFontDatasForFamily
  */
 FontCssCreator.prototype.getFontDatasForFamily = function(family) {
@@ -82,6 +83,10 @@ FontCssCreator.prototype.getFontDatasForFamily = function(family) {
 		if (family == this.fontDatas[i].fontFamily)
 			datas.push(this.fontDatas[i]);
 	}
+
+	datas.sort(function(a, b) {
+		return a.formatPriority - b.formatPriority;
+	});
 
 	return datas;
 }
@@ -105,6 +110,11 @@ FontCssCreator.prototype.parseFontFile = function(fontFile) {
 		return thenable;
 	}
 
+	var formatPriorities = {
+		".woff2": 0,
+		".woff": 1
+	};
+
 	var fontFileContents = fs.readFileSync(fontFile);
 	parser(fontFileContents).then(
 		function(res) {
@@ -117,7 +127,8 @@ FontCssCreator.prototype.parseFontFile = function(fontFile) {
 				fontFamily: spec.fontFamily,
 				fontSubFamily: spec.fontSubFamily,
 				fileName: fontFile,
-				weight: res["OS/2"].weight.value
+				weight: res["OS/2"].weight.value,
+				formatPriority: formatPriorities[path.extname(fontFile)]
 			}
 
 			this.fontDatas.push(fontData);
